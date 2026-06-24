@@ -12,13 +12,18 @@ formEl.addEventListener('submit', event => {
 
   getImagesByQuery(query)
     .then(response => {
-      console.log(response.data);
+      const images = response.data.hits;
+      if (images.length === 0) {
+        iziToast.error({
+          title: 'Error',
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
+        });
+        return;
+      }
+      console.log(images);
     })
     .catch(error => {
-      iziToast.error({
-        title: 'Error',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-      });
+      console.log(error);
     });
 });
