@@ -9,7 +9,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const formEl = document.querySelector('.form');
 
-const gallery = document.querySelector('.gallary');
+const galleryEl = document.querySelector('.gallery');
 
 formEl.addEventListener('submit', event => {
   event.preventDefault();
@@ -28,7 +28,10 @@ formEl.addEventListener('submit', event => {
         });
         return;
       }
-      console.log(images);
+      const markup = createGallery(images);
+      galleryEl.innerHTML = markup;
+      lightbox.refresh();
+      // console.log(images);
     })
     .catch(error => {
       console.log(error);
