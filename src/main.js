@@ -14,7 +14,7 @@ formEl.addEventListener('submit', event => {
 
   const form = event.currentTarget;
 
-  const formData = new FormData(formEl);
+  const formData = new FormData(form);
   const query = formData.get('search-text');
 
   clearGallery();
@@ -22,7 +22,6 @@ formEl.addEventListener('submit', event => {
 
   getImagesByQuery(query)
     .then(data => {
-      hideLoader();
       if (data.hits.length === 0) {
         iziToast.error({
           title: 'Error',
@@ -35,11 +34,13 @@ formEl.addEventListener('submit', event => {
       form.reset();
     })
     .catch(error => {
-      hideLoader();
       iziToast.error({
         title: 'Error',
-        message: 'Something went wrong. Please try again later.!',
+        message: 'Something went wrong. Please try again later!',
       });
       console.log(error);
+    })
+    .finally(() => {
+      hideLoader();
     });
 });
