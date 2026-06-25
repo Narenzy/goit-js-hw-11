@@ -1,15 +1,13 @@
 import { getImagesByQuery } from './js/pixabay-api';
 import { createGallery } from './js/render-function';
+import { clearGallery } from './js/render-function';
+import { showLoader } from './js/render-function';
+import { hideLoader } from './js/render-function';
 
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
 const formEl = document.querySelector('.form');
-
-const galleryEl = document.querySelector('.gallery');
 
 formEl.addEventListener('submit', event => {
   event.preventDefault();
@@ -17,8 +15,12 @@ formEl.addEventListener('submit', event => {
   const formData = new FormData(formEl);
   const query = formData.get('search-text');
 
+  clearGallery();
+  showLoader();
+
   getImagesByQuery(query)
     .then(response => {
+      hideLoader();
       const images = response.data.hits;
       if (images.length === 0) {
         iziToast.error({
@@ -28,12 +30,11 @@ formEl.addEventListener('submit', event => {
         });
         return;
       }
-      const markup = createGallery(images);
-      galleryEl.innerHTML = markup;
-      lightbox.refresh();
-      // console.log(images);
+      createGallery(images);
     })
     .catch(error => {
+      hideLoader();
       console.log(error);
     });
+  event.currentTarget.reset();
 });
