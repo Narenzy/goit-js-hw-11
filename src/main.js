@@ -1,8 +1,15 @@
 import { getImagesByQuery } from './js/pixabay-api';
+import { createGallery } from './js/render-function';
+
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const formEl = document.querySelector('.form');
+
+const gallery = document.querySelector('.gallary');
 
 formEl.addEventListener('submit', event => {
   event.preventDefault();

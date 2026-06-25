@@ -1,4 +1,18 @@
-const gallery = document.querySelector('.gallary');
+export function createGallery(images) {
+  return images
+    .map(image => {
+      return `
+        <li>
+            <a href="${image.largeImageURL}">
+              <img src="${image.webformatURL}" alt="${image.tags}"/>
+          </a>
 
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+          <p>Likes:${image.likes}</p>
+          <p>Views:${image.views}</p>
+          <p>Comments:${image.comments}</p>
+          <p>Downloads:${image.downloads}</p>
+    
+        </li>`;
+    })
+    .join('');
+}
