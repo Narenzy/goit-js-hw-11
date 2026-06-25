@@ -21,10 +21,9 @@ formEl.addEventListener('submit', event => {
   showLoader();
 
   getImagesByQuery(query)
-    .then(response => {
+    .then(data => {
       hideLoader();
-      const images = response.data.hits;
-      if (images.length === 0) {
+      if (data.hits.length === 0) {
         iziToast.error({
           title: 'Error',
           message:
@@ -32,11 +31,15 @@ formEl.addEventListener('submit', event => {
         });
         return;
       }
-      createGallery(images);
+      createGallery(data.hits);
       form.reset();
     })
     .catch(error => {
       hideLoader();
+      iziToast.error({
+        title: 'Error',
+        message: 'Something went wrong. Please try again later.!',
+      });
       console.log(error);
     });
 });
