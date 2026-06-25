@@ -12,6 +12,8 @@ const formEl = document.querySelector('.form');
 formEl.addEventListener('submit', event => {
   event.preventDefault();
 
+  const form = event.currentTarget;
+
   const formData = new FormData(formEl);
   const query = formData.get('search-text');
 
@@ -31,10 +33,10 @@ formEl.addEventListener('submit', event => {
         return;
       }
       createGallery(images);
+      form.reset();
     })
     .catch(error => {
       hideLoader();
       console.log(error);
     });
-  event.currentTarget.reset();
 });

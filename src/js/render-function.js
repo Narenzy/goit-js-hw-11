@@ -23,7 +23,6 @@ export function createGallery(images) {
             <p>Comments:${image.comments}</p>
             <p>Downloads:${image.downloads}</p>
           </div>
-    
         </li>`;
     })
     .join('');
