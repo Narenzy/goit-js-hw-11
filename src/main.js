@@ -15,7 +15,15 @@ formEl.addEventListener('submit', event => {
   const form = event.currentTarget;
 
   const formData = new FormData(form);
-  const query = formData.get('search-text');
+  const query = formData.get('search-text').trim();
+
+  if (query === '') {
+    iziToast.error({
+      title: 'Error',
+      message: 'Pleas enter a search query',
+    });
+    return;
+  }
 
   clearGallery();
   showLoader();
